@@ -31,6 +31,10 @@
       .lang-switch { position: absolute; right: 0; display: flex; gap: 10px; font-size: 13px; }
       .lang-switch a { color: #5b5f66; text-decoration: none; }
       .lang-switch a.active { color: #0b57d0; font-weight: 600; }
+      @media (max-width: 640px) {
+        .topbar { flex-direction: column; gap: 10px; }
+        .lang-switch { position: static; flex-wrap: wrap; justify-content: center; }
+      }
       button { border: 1px solid #0b57d0; background: #0b57d0; color: #fff; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; }
       button:active { transform: translateY(1px); }
     </style>
@@ -39,7 +43,8 @@
     <main>
       <div class="topbar">
         <div class="lang-switch">
-          <a href="/index.html">CN</a>
+          <a href="/index.html">汉</a>
+          <a href="/index-zh-hant.html">漢</a>
           <a class="active" href="/index-en.html">EN</a>
           <a href="/index-fr.html">FR</a>
           <a href="/index-ru.html">RU</a>

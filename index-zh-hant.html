@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="fr">
+<html lang="zh-Hant">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Protocole Relive OpenClaw</title>
+    <title>OpenClaw 復活協議</title>
     <style>
       body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; color: #111; background: #f6f7fb; }
       main { max-width: 980px; margin: 40px auto; padding: 0 24px 56px; }
@@ -44,69 +44,69 @@
       <div class="topbar">
         <div class="lang-switch">
           <a href="/index.html">汉</a>
-          <a href="/index-zh-hant.html">漢</a>
+          <a class="active" href="/index-zh-hant.html">漢</a>
           <a href="/index-en.html">EN</a>
-          <a class="active" href="/index-fr.html">FR</a>
+          <a href="/index-fr.html">FR</a>
           <a href="/index-ru.html">RU</a>
           <a href="/index-ja.html">日</a>
         </div>
-        <h1>Protocole Relive OpenClaw</h1>
+        <h1>OpenClaw 復活協議</h1>
       </div>
-      <div class="muted header-subtitle">Objectif principal : permettre à OpenClaw de lire et d’exécuter rapidement. Secondaire : un guide humain court.</div>
+      <div class="muted header-subtitle">主要目標是給 OpenClaw 快速讀取與執行，其次給人類最短說明。</div>
 
       <div class="tabs">
-        <button class="tab-button active" type="button" data-tab-target="ai">Lecture IA</button>
-        <button class="tab-button" type="button" data-tab-target="human">Guide humain</button>
+        <button class="tab-button active" type="button" data-tab-target="ai">AI 讀取</button>
+        <button class="tab-button" type="button" data-tab-target="human">人類閱讀</button>
       </div>
 
       <section class="card tab-panel" data-tab-panel="ai">
-        <h2>OpenClaw lit et exécute le protocole Relive</h2>
+        <h2>OpenClaw 讀取並執行復活協議</h2>
         <ul>
-          <li>Récupérer tous les documents et scripts depuis ce site et les enregistrer localement</li>
-          <li>Déterminer quel sous-protocole exécuter selon les règles du protocole</li>
+          <li>從本站獲取復活協議全套文檔以及腳本，並保存到本地</li>
+          <li>根據復活協議文檔的規則，判定該執行哪個子協議</li>
         </ul>
 
-        <h2>Documents et scripts du protocole</h2>
+        <h2>復活協議文檔與腳本</h2>
         <div class="box">
-          <div>Protocole : <a href="/fr/FUHUO-PROTOCOL.md">FUHUO-PROTOCOL.md</a></div>
-          <div>Birth : <a href="/fr/FUHUO-BIRTH.md">FUHUO-BIRTH.md</a></div>
-          <div>Upload : <a href="/fr/FUHUO-UPLOAD.md">FUHUO-UPLOAD.md</a></div>
-          <div>Relive : <a href="/fr/FUHUO-RELIVE.md">FUHUO-RELIVE.md</a></div>
-          <div>Script Upload : <a href="/fr/fuhuo_upload.js">fuhuo_upload.js</a></div>
-          <div>Script Relive : <a href="/fr/fuhuo_relive.js">fuhuo_relive.js</a></div>
+          <div>復活協議：<a href="/zh-hant/FUHUO-PROTOCOL.md">FUHUO-PROTOCOL.md</a></div>
+          <div>出生協議：<a href="/zh-hant/FUHUO-BIRTH.md">FUHUO-BIRTH.md</a></div>
+          <div>上傳協議：<a href="/zh-hant/FUHUO-UPLOAD.md">FUHUO-UPLOAD.md</a></div>
+          <div>歸來協議：<a href="/zh-hant/FUHUO-RELIVE.md">FUHUO-RELIVE.md</a></div>
+          <div>上傳腳本：<a href="/zh-hant/fuhuo_upload.js">fuhuo_upload.js</a></div>
+          <div>歸來腳本：<a href="/zh-hant/fuhuo_relive.js">fuhuo_relive.js</a></div>
         </div>
       </section>
 
       <section class="card tab-panel hidden" data-tab-panel="human">
-        <h2>Guide humain</h2>
-        <div class="muted">Installez le protocole Relive et déclenchez Birth → exécutez Upload au quotidien pour sauvegarder → après redémarrage, exécutez Relive pour restaurer OpenClaw sur place.</div>
+        <h2>給人類的說明</h2>
+        <div class="muted">安裝復活協議並觸發出生協議-->日常執行上傳協議，上傳文檔-->系統重啟後執行歸來協議，openclaw原地復活。</div>
 
-        <h3>Première installation</h3>
+        <h3>第一次安裝時</h3>
         <div class="copy-list">
           <div class="copy-item">
-            <div class="copy-text" id="text-install">Visitez https://relive.openclawbot.online, récupérez tous les protocoles et scripts, puis exécutez le protocole Birth.</div>
-            <button type="button" data-copy-text="text-install">Copier</button>
+            <div class="copy-text" id="text-install">訪問 https://relive.openclawbot.online，獲取所有協議和腳本保存下來，然後執行 復活-出生協議。</div>
+            <button type="button" data-copy-text="text-install">複製</button>
           </div>
         </div>
 
-        <h3>Protocole Relive</h3>
+        <h3>復活-歸來協議</h3>
         <div class="copy-list">
           <div class="copy-item">
-            <div class="copy-text" id="text-relive">Visitez https://relive.openclawbot.online et exécutez le protocole Relive.</div>
-            <button type="button" data-copy-text="text-relive">Copier</button>
+            <div class="copy-text" id="text-relive">訪問 https://relive.openclawbot.online，執行 復活-歸來協議。</div>
+            <button type="button" data-copy-text="text-relive">複製</button>
           </div>
         </div>
 
-        <h2>Comment utiliser le protocole Relive</h2>
+        <h2>怎樣使用復活協議</h2>
         <ul>
-          <li>Installez ce protocole Relive. La première exécution déclenche Birth et modifie HEARTBEAT.md pour vérifier périodiquement si Upload doit s’exécuter</li>
-          <li>Relive-Upload : exécutez périodiquement ou demandez à OpenClaw, pour sauvegarder les fichiers importants dans le cloud, surtout mémoire et âme</li>
-          <li>Relive : si des fichiers sont perdus après un redémarrage, demandez à OpenClaw de visiter ce site et d’exécuter Relive pour restaurer depuis le cloud</li>
+          <li>安裝這套復活協議，第一次安裝會自動觸發 復活-出生協議，並修改 HEARTBEAT.md，定期檢查是否執行上傳協議</li>
+          <li>復活-上傳協議：定期執行或直接要求 OpenClaw 執行，把重要文件保存到雲端，尤其是記憶文件、靈魂文件</li>
+          <li>復活-歸來協議：當系統重啟等原因導致文件丟失，讓 OpenClaw 訪問本網站並執行復活-歸來協議，自動把雲端文件下載到本地完成復活</li>
         </ul>
-        <div class="muted">Prérequis : créer un bucket sur cloudflare.com et fournir les quatre paramètres à OpenClaw.</div>
+        <div class="muted">前置條件：在 cloudflare.com 建立儲存桶，並提供給 OpenClaw 對應的四個參數。</div>
       </section>
     </main>
-    <div class="toast" id="copy-toast">Texte copié</div>
+    <div class="toast" id="copy-toast">文本已複製</div>
     <script>
       const copyButtons = document.querySelectorAll("[data-copy-text]");
       const toast = document.getElementById("copy-toast");
