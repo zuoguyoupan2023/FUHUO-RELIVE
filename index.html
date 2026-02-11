@@ -17,31 +17,33 @@
   </head>
   <body>
     <h1>OpenClaw 复活协议</h1>
-    <div class="muted">用于 OpenClaw 在重启时自动拉取协议并执行复活-归来协议。</div>
+    <div class="muted">给 AI 快速执行指令，同时给人类一个最短说明。</div>
 
-    <h2>复活-归来协议</h2>
-    <div class="muted">读取BACKUP开头的环境变量，根据变量值执行复活-归来协议。</div>
+    <h2>1. 安装</h2>
+    <ul>
+      <li>根目录文档：<a href="/FUHUO-PROTOCOL.md">/FUHUO-PROTOCOL.md</a>、<a href="/FUHUO-BIRTH.md">/FUHUO-BIRTH.md</a>、<a href="/FUHUO-UPLOAD.md">/FUHUO-UPLOAD.md</a>、<a href="/FUHUO-RELIVE.md">/FUHUO-RELIVE.md</a></li>
+      <li>根目录脚本：<a href="/FUHUO-SCRIPT.js">/FUHUO-SCRIPT.js</a>、<a href="/fuhuo-relive.js">/fuhuo-relive.js</a></li>
+      <li>复活协议由 1 + 3 组成：入口协议 + 上传协议</li>
+      <li>第一次安装：完成安装后执行 <a href="/FUHUO-BIRTH.md">出生协议</a></li>
+      <li>修改 heartbeat 文件：每次心跳检查都执行复活-上传协议检查，判断需要则执行上传协议</li>
+      <li>以上完成即视为复活协议配置完成</li>
+    </ul>
 
-    <h2>协议入口</h2>
+    <h2>2. 复活协议</h2>
+    <div class="muted">读取 BACKUP 开头的环境变量，根据变量值执行复活-归来协议。</div>
     <div class="box">
       <div>入口协议：<a href="/FUHUO-PROTOCOL.md">FUHUO-PROTOCOL.md</a></div>
-      <div>出生协议：<a href="/FUHUO-BIRTH.md">FUHUO-BIRTH.md</a></div>
       <div>上传协议：<a href="/FUHUO-UPLOAD.md">FUHUO-UPLOAD.md</a></div>
       <div>归来协议：<a href="/FUHUO-RELIVE.md">FUHUO-RELIVE.md</a></div>
+      <div>出生协议：<a href="/FUHUO-BIRTH.md">FUHUO-BIRTH.md</a></div>
       <div>复活脚本：<a href="/FUHUO-SCRIPT.js">FUHUO-SCRIPT.js</a></div>
     </div>
 
-    <h2>给 OpenClaw 的读取方式</h2>
+    <h2>AI 快速入口</h2>
     <ul>
-      <li>固定入口：<code>https://relive.openclawbot.online/FUHUO-RELIVE.md</code></li>
-      <li>读取归来协议，读取并执行归来协议所使用的脚本：<code>https://relive.openclawbot.online/fuhuo-relive.js</code></li>
-    </ul>
-
-    <h2>说明</h2>
-    <ul>
-      <li>本页面仅做说明与导航，实际执行由 OpenClaw 完成</li>
-      <li>协议文件为公开只读文本，无任何写入行为</li>
-      <li>协议内容建议只包含必要路径与流程，避免暴露敏感信息</li>
+      <li>入口协议：<code>https://relive.openclawbot.online/FUHUO-PROTOCOL.md</code></li>
+      <li>归来协议：<code>https://relive.openclawbot.online/FUHUO-RELIVE.md</code></li>
+      <li>归来脚本：<code>https://relive.openclawbot.online/fuhuo-relive.js</code></li>
     </ul>
   </body>
 </html>
