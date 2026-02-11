@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="ru">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>OpenClaw 复活协议</title>
+    <title>Протокол Relive OpenClaw</title>
     <style>
       body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; color: #111; background: #f6f7fb; }
       main { max-width: 980px; margin: 40px auto; padding: 0 24px 56px; }
@@ -39,71 +39,69 @@
     <main>
       <div class="topbar">
         <div class="lang-switch">
-          <a class="active" href="/index.html">CN</a>
+          <a href="/index.html">CN</a>
           <a href="/index-en.html">EN</a>
           <a href="/index-fr.html">FR</a>
-          <a href="/index-ru.html">RU</a>
+          <a class="active" href="/index-ru.html">RU</a>
           <a href="/index-ja.html">日</a>
         </div>
-        <h1>OpenClaw 复活协议</h1>
+        <h1>Протокол Relive OpenClaw</h1>
       </div>
-      <div class="muted header-subtitle">主要目标是给 OpenClaw 快速读取与执行，其次给人类最短说明。</div>
+      <div class="muted header-subtitle">Главная цель — чтобы OpenClaw быстро читал и выполнял. Вторичная — короткое описание для человека.</div>
 
       <div class="tabs">
-        <button class="tab-button active" type="button" data-tab-target="ai">AI 读取</button>
-        <button class="tab-button" type="button" data-tab-target="human">人类阅读</button>
+        <button class="tab-button active" type="button" data-tab-target="ai">Чтение ИИ</button>
+        <button class="tab-button" type="button" data-tab-target="human">Для человека</button>
       </div>
 
       <section class="card tab-panel" data-tab-panel="ai">
-        <h2>OpenClaw读取并执行复活协议</h2>
+        <h2>OpenClaw читает и выполняет протокол Relive</h2>
         <ul>
-          <li>从本站获取复活协议全套文档以及脚本，并保存到本地</li>
-          <li>根据复活协议文档的规则，判定该执行哪个子协议</li>
+          <li>Получить все документы и скрипты с сайта и сохранить локально</li>
+          <li>Определить, какой подпроtocol выполнять, по правилам протокола</li>
         </ul>
 
-        <h2>复活协议文档与脚本</h2>
+        <h2>Документы и скрипты протокола</h2>
         <div class="box">
-          <div>复活协议：<a href="/cn/FUHUO-PROTOCOL.md">FUHUO-PROTOCOL.md</a></div>
-          <div>出生协议：<a href="/cn/FUHUO-BIRTH.md">FUHUO-BIRTH.md</a></div>
-          <div>上传协议：<a href="/cn/FUHUO-UPLOAD.md">FUHUO-UPLOAD.md</a></div>
-          <div>归来协议：<a href="/cn/FUHUO-RELIVE.md">FUHUO-RELIVE.md</a></div>
-          <div>上传脚本：<a href="/cn/fuhuo_upload.js">fuhuo_upload.js</a></div>
-          <div>归来脚本：<a href="/cn/fuhuo_relive.js">fuhuo_relive.js</a></div>
+          <div>Протокол: <a href="/ru/FUHUO-PROTOCOL.md">FUHUO-PROTOCOL.md</a></div>
+          <div>Birth: <a href="/ru/FUHUO-BIRTH.md">FUHUO-BIRTH.md</a></div>
+          <div>Upload: <a href="/ru/FUHUO-UPLOAD.md">FUHUO-UPLOAD.md</a></div>
+          <div>Relive: <a href="/ru/FUHUO-RELIVE.md">FUHUO-RELIVE.md</a></div>
+          <div>Скрипт Upload: <a href="/ru/fuhuo_upload.js">fuhuo_upload.js</a></div>
+          <div>Скрипт Relive: <a href="/ru/fuhuo_relive.js">fuhuo_relive.js</a></div>
         </div>
-
-
       </section>
 
       <section class="card tab-panel hidden" data-tab-panel="human">
-        <h2>给人类的说明</h2>
-        <div class="muted">安装复活协议并触发出生协议-->日常执行上传协议，上传文档-->系统重启后执行归来协议，openclaw原地复活。</div>
+        <h2>Пояснение для человека</h2>
+        <div class="muted">Установите протокол Relive и запустите Birth → ежедневно выполняйте Upload для сохранения файлов → после перезапуска выполняйте Relive для восстановления OpenClaw.</div>
 
-        <h3>第一次安装时</h3>
+        <h3>Первая установка</h3>
         <div class="copy-list">
           <div class="copy-item">
-            <div class="copy-text" id="text-install">访问 https://relive.openclawbot.online，获取所有协议和脚本保存下来，然后执行 复活-出生协议。</div>
-            <button type="button" data-copy-text="text-install">复制</button>
+            <div class="copy-text" id="text-install">Перейдите на https://relive.openclawbot.online, получите все протоколы и скрипты, затем выполните протокол Birth.</div>
+            <button type="button" data-copy-text="text-install">Копировать</button>
           </div>
         </div>
 
-        <h3>复活-归来协议</h3>
+        <h3>Протокол Relive</h3>
         <div class="copy-list">
           <div class="copy-item">
-            <div class="copy-text" id="text-relive">访问 https://relive.openclawbot.online，执行 复活-归来协议。</div>
-            <button type="button" data-copy-text="text-relive">复制</button>
+            <div class="copy-text" id="text-relive">Перейдите на https://relive.openclawbot.online и выполните протокол Relive.</div>
+            <button type="button" data-copy-text="text-relive">Копировать</button>
           </div>
         </div>
 
-        <h2>怎样使用复活协议</h2>
+        <h2>Как использовать протокол Relive</h2>
         <ul>
-          <li>安装这套复活协议，第一次安装会自动触发 复活-出生协议，并修改 HEARTBEAT.md，定期检查是否执行上传协议</li>
-          <li>复活-上传协议：定期执行或直接要求 OpenClaw 执行，把重要文件保存到云端，尤其是记忆文件、灵魂文件</li>
-          <li>复活-归来协议：当系统重启等原因导致文件丢失，让 OpenClaw 访问本网站并执行复活-归来协议，自动把云端文件下载到本地完成复活</li>
+          <li>Установите протокол Relive. Первый запуск запускает Birth и изменяет HEARTBEAT.md, чтобы периодически проверять, нужно ли выполнять Upload</li>
+          <li>Relive-Upload: выполняйте периодически или попросите OpenClaw, чтобы сохранять важные файлы в облако, особенно файлы памяти и души</li>
+          <li>Relive: при потере файлов после перезапуска попросите OpenClaw посетить этот сайт и выполнить Relive для восстановления из облака</li>
         </ul>
-        <div class="muted">前置条件：在 cloudflare.com 创建存储桶，并提供给 OpenClaw 对应的四个参数。</div>
+        <div class="muted">Требуется: создать bucket на cloudflare.com и передать OpenClaw четыре параметра.</div>
       </section>
     </main>
-    <div class="toast" id="copy-toast">文本已复制</div>
+    <div class="toast" id="copy-toast">Текст скопирован</div>
     <script>
       const copyButtons = document.querySelectorAll("[data-copy-text]");
       const toast = document.getElementById("copy-toast");

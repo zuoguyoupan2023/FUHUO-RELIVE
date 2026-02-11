@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="ja">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>OpenClaw 复活协议</title>
+    <title>OpenClaw 复活プロトコル</title>
     <style>
       body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; color: #111; background: #f6f7fb; }
       main { max-width: 980px; margin: 40px auto; padding: 0 24px 56px; }
@@ -39,71 +39,69 @@
     <main>
       <div class="topbar">
         <div class="lang-switch">
-          <a class="active" href="/index.html">CN</a>
+          <a href="/index.html">CN</a>
           <a href="/index-en.html">EN</a>
           <a href="/index-fr.html">FR</a>
           <a href="/index-ru.html">RU</a>
-          <a href="/index-ja.html">日</a>
+          <a class="active" href="/index-ja.html">日</a>
         </div>
-        <h1>OpenClaw 复活协议</h1>
+        <h1>OpenClaw 复活プロトコル</h1>
       </div>
-      <div class="muted header-subtitle">主要目标是给 OpenClaw 快速读取与执行，其次给人类最短说明。</div>
+      <div class="muted header-subtitle">主目的は OpenClaw が素早く読み取り実行すること。副次は人間向けの短い説明。</div>
 
       <div class="tabs">
-        <button class="tab-button active" type="button" data-tab-target="ai">AI 读取</button>
-        <button class="tab-button" type="button" data-tab-target="human">人类阅读</button>
+        <button class="tab-button active" type="button" data-tab-target="ai">AI 読み取り</button>
+        <button class="tab-button" type="button" data-tab-target="human">人間向け</button>
       </div>
 
       <section class="card tab-panel" data-tab-panel="ai">
-        <h2>OpenClaw读取并执行复活协议</h2>
+        <h2>OpenClaw が复活プロトコルを読み取り実行</h2>
         <ul>
-          <li>从本站获取复活协议全套文档以及脚本，并保存到本地</li>
-          <li>根据复活协议文档的规则，判定该执行哪个子协议</li>
+          <li>本サイトから复活プロトコルの全文書とスクリプトを取得し、ローカルに保存</li>
+          <li>プロトコル文書のルールに従い、どの子プロトコルを実行するか判断</li>
         </ul>
 
-        <h2>复活协议文档与脚本</h2>
+        <h2>复活プロトコルの文書とスクリプト</h2>
         <div class="box">
-          <div>复活协议：<a href="/cn/FUHUO-PROTOCOL.md">FUHUO-PROTOCOL.md</a></div>
-          <div>出生协议：<a href="/cn/FUHUO-BIRTH.md">FUHUO-BIRTH.md</a></div>
-          <div>上传协议：<a href="/cn/FUHUO-UPLOAD.md">FUHUO-UPLOAD.md</a></div>
-          <div>归来协议：<a href="/cn/FUHUO-RELIVE.md">FUHUO-RELIVE.md</a></div>
-          <div>上传脚本：<a href="/cn/fuhuo_upload.js">fuhuo_upload.js</a></div>
-          <div>归来脚本：<a href="/cn/fuhuo_relive.js">fuhuo_relive.js</a></div>
+          <div>协议：<a href="/ja/FUHUO-PROTOCOL.md">FUHUO-PROTOCOL.md</a></div>
+          <div>出生协议：<a href="/ja/FUHUO-BIRTH.md">FUHUO-BIRTH.md</a></div>
+          <div>上传协议：<a href="/ja/FUHUO-UPLOAD.md">FUHUO-UPLOAD.md</a></div>
+          <div>复活协议：<a href="/ja/FUHUO-RELIVE.md">FUHUO-RELIVE.md</a></div>
+          <div>上传スクリプト：<a href="/ja/fuhuo_upload.js">fuhuo_upload.js</a></div>
+          <div>复活スクリプト：<a href="/ja/fuhuo_relive.js">fuhuo_relive.js</a></div>
         </div>
-
-
       </section>
 
       <section class="card tab-panel hidden" data-tab-panel="human">
-        <h2>给人类的说明</h2>
-        <div class="muted">安装复活协议并触发出生协议-->日常执行上传协议，上传文档-->系统重启后执行归来协议，openclaw原地复活。</div>
+        <h2>人間向けの説明</h2>
+        <div class="muted">复活プロトコルを導入して出生を起動 → 日常的に上传を実行して保存 → 再起動後に复活を実行し、OpenClaw をその場で復元。</div>
 
-        <h3>第一次安装时</h3>
+        <h3>初回インストール</h3>
         <div class="copy-list">
           <div class="copy-item">
-            <div class="copy-text" id="text-install">访问 https://relive.openclawbot.online，获取所有协议和脚本保存下来，然后执行 复活-出生协议。</div>
-            <button type="button" data-copy-text="text-install">复制</button>
+            <div class="copy-text" id="text-install">https://relive.openclawbot.online にアクセスし、すべてのプロトコルとスクリプトを取得して保存し、出生プロトコルを実行。</div>
+            <button type="button" data-copy-text="text-install">コピー</button>
           </div>
         </div>
 
-        <h3>复活-归来协议</h3>
+        <h3>复活プロトコル</h3>
         <div class="copy-list">
           <div class="copy-item">
-            <div class="copy-text" id="text-relive">访问 https://relive.openclawbot.online，执行 复活-归来协议。</div>
-            <button type="button" data-copy-text="text-relive">复制</button>
+            <div class="copy-text" id="text-relive">https://relive.openclawbot.online にアクセスし、复活プロトコルを実行。</div>
+            <button type="button" data-copy-text="text-relive">コピー</button>
           </div>
         </div>
 
-        <h2>怎样使用复活协议</h2>
+        <h2>复活プロトコルの使い方</h2>
         <ul>
-          <li>安装这套复活协议，第一次安装会自动触发 复活-出生协议，并修改 HEARTBEAT.md，定期检查是否执行上传协议</li>
-          <li>复活-上传协议：定期执行或直接要求 OpenClaw 执行，把重要文件保存到云端，尤其是记忆文件、灵魂文件</li>
-          <li>复活-归来协议：当系统重启等原因导致文件丢失，让 OpenClaw 访问本网站并执行复活-归来协议，自动把云端文件下载到本地完成复活</li>
+          <li>复活プロトコルを導入すると、初回は出生が自動実行され、HEARTBEAT.md を修正して上传の実行判定を定期的に行う</li>
+          <li>复活-上传：定期実行または OpenClaw に実行させ、重要ファイルをクラウドへ保存（特に記憶ファイル・魂ファイル）</li>
+          <li>复活：再起動などでファイルが失われたら、OpenClaw に本サイトへアクセスさせ复活を実行し、クラウドから自動復元</li>
         </ul>
-        <div class="muted">前置条件：在 cloudflare.com 创建存储桶，并提供给 OpenClaw 对应的四个参数。</div>
+        <div class="muted">前提条件：cloudflare.com でバケットを作成し、OpenClaw に対応する4つのパラメータを渡す。</div>
       </section>
     </main>
-    <div class="toast" id="copy-toast">文本已复制</div>
+    <div class="toast" id="copy-toast">コピーしました</div>
     <script>
       const copyButtons = document.querySelectorAll("[data-copy-text]");
       const toast = document.getElementById("copy-toast");
