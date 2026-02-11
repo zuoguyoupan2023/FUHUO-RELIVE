@@ -7,15 +7,16 @@
     <style>
       body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; color: #111; background: #f6f7fb; }
       main { max-width: 980px; margin: 40px auto; padding: 0 24px 56px; }
-      h1 { margin: 0 0 10px; font-size: 28px; }
+      h1 { margin: 0 0 10px; font-size: 28px; text-align: center; }
       h2 { margin-top: 28px; }
       .muted { color: #6b6f76; }
+      .header-subtitle { text-align: center; }
       code { background: #f1f3f7; padding: 2px 6px; border-radius: 4px; }
       ul { line-height: 1.8; padding-left: 20px; }
       a { color: #0b57d0; text-decoration: none; }
       a:hover { text-decoration: underline; }
       .card { background: #fff; border: 1px solid #e7e9f0; border-radius: 8px; padding: 20px 22px; box-shadow: 0 10px 30px rgba(21, 28, 45, 0.08); }
-      .tabs { display: flex; gap: 10px; margin-top: 18px; }
+      .tabs { display: flex; gap: 10px; margin-top: 18px; justify-content: center; }
       .tab-button { border: 1px solid #d6d9e2; background: #f6f7fb; color: #30333a; padding: 10px 16px; border-radius: 10px; cursor: pointer; font-weight: 600; }
       .tab-button.active { background: #0b57d0; color: #fff; border-color: #0b57d0; }
       .tab-panel { margin-top: 22px; }
@@ -33,7 +34,7 @@
   <body>
     <main>
       <h1>OpenClaw 复活协议</h1>
-      <div class="muted">主要目标是给 OpenClaw 快速读取与执行，其次给人类最短说明。</div>
+      <div class="muted header-subtitle">主要目标是给 OpenClaw 快速读取与执行，其次给人类最短说明。</div>
 
       <div class="tabs">
         <button class="tab-button active" type="button" data-tab-target="ai">AI 读取</button>
@@ -41,35 +42,28 @@
       </div>
 
       <section class="card tab-panel" data-tab-panel="ai">
-        <h2>给 AI 的部分：复活协议</h2>
-        <div class="muted">读取 BACKUP 开头的四个变量，根据变量值与协议规则执行子协议。</div>
+        <h2>OpenClaw读取并执行复活协议</h2>
         <ul>
-          <li>检查是否有 BACKUP 开头的四个变量；若没有，告知人类：在 cloudflare.com 设置免费 R2 存储桶，获取参数并发给我。获得环境变量后安全保存</li>
           <li>从本站获取复活协议全套文档以及脚本，并保存到本地</li>
           <li>根据复活协议文档的规则，判定该执行哪个子协议</li>
         </ul>
 
-        <h2>协议入口与脚本</h2>
+        <h2>复活协议文档与脚本</h2>
         <div class="box">
-          <div>入口协议：<a href="/FUHUO-PROTOCOL.md">FUHUO-PROTOCOL.md</a></div>
+          <div>复活协议：<a href="/FUHUO-PROTOCOL.md">FUHUO-PROTOCOL.md</a></div>
           <div>出生协议：<a href="/FUHUO-BIRTH.md">FUHUO-BIRTH.md</a></div>
           <div>上传协议：<a href="/FUHUO-UPLOAD.md">FUHUO-UPLOAD.md</a></div>
           <div>归来协议：<a href="/FUHUO-RELIVE.md">FUHUO-RELIVE.md</a></div>
-          <div>复活脚本：<a href="/FUHUO-SCRIPT.js">FUHUO-SCRIPT.js</a></div>
+          <div>上传脚本：<a href="/fuhuo-upload.js">fuhuo-upload.js</a></div>
           <div>归来脚本：<a href="/fuhuo-relive.js">fuhuo-relive.js</a></div>
         </div>
 
-        <h2>AI 快速入口</h2>
-        <ul>
-          <li>入口协议：<code>https://relive.openclawbot.online/FUHUO-PROTOCOL.md</code></li>
-          <li>归来协议：<code>https://relive.openclawbot.online/FUHUO-RELIVE.md</code></li>
-          <li>归来脚本：<code>https://relive.openclawbot.online/fuhuo-relive.js</code></li>
-        </ul>
+
       </section>
 
       <section class="card tab-panel hidden" data-tab-panel="human">
         <h2>给人类的说明</h2>
-        <div class="muted">点击复制按钮，把文本复制给你的 OpenClaw。</div>
+        <div class="muted">安装复活协议并触发出生协议-->日常执行上传协议，上传文档-->系统重启后执行归来协议，openclaw原地复活。</div>
 
         <h3>第一次安装时</h3>
         <div class="copy-list">
