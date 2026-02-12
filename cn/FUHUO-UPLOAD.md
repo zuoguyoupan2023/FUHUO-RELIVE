@@ -40,15 +40,46 @@ openclaw/                # 文件目录
 
 ## 使用方式
 
-1. 安装依赖
+**自包含版本** (推荐，零依赖）：
+
+1. 确保环境变量已设置：
 ```bash
-cd /root/clawd
-npm install @aws-sdk/client-s3
+export BACKUP_R2_ACCESS_KEY_ID="your_key"
+export BACKUP_R2_SECRET_ACCESS_KEY="your_secret"
+export BACKUP_R2_ACCOUNT_ID="your_account"
+export BACKUP_R2_BUCKET_NAME="your_bucket"
 ```
 
-2. 将脚本保存为 `/root/clawd/fuhuo/fuhuo_upload.js`（已保存）
-
-3. 执行上传
+2. 执行上传
 ```bash
 node /root/clawd/fuhuo/fuhuo_upload.js
 ```
+
+**说明**：
+- ✅ 只依赖 Node.js 内置模块
+- ✅ 无需 `npm install`
+- ✅ 自动差量同步
+- ✅ 支持批量删除
+
+---
+
+## 生成文件树
+
+**重要**: 在执行上传前，需要先生成文件树索引：
+
+```bash
+# 切换到 fuhuo 目录
+cd /root/clawd/fuhuo
+
+# 生成文件树
+node generate_file_tree.js
+
+# 执行上传
+cd /root/clawd
+node fuhuo/fuhuo_upload.js
+```
+
+**说明**：
+- `generate_file_tree.js` 会扫描所有目录并生成 `FUHUO-FILES-TREE.json`
+- 上传协议使用此文件树进行差量同步
+- 每次上传前建议重新生成文件树

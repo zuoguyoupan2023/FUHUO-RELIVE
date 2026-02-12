@@ -36,7 +36,12 @@ openclaw/                # 文件目录
 
 1. 将脚本保存为 `/root/clawd/fuhuo/fuhuo_relive.js`
 
-3. 执行归来
+2. 执行归来
 ```bash
 node /root/clawd/fuhuo/fuhuo_relive.js
 ```
+
+**说明**：
+- ✅ 只依赖 Node.js 内置模块
+- ✅ 无需 `npm install`
+- ✅ 自动从 R2 恢复文件
