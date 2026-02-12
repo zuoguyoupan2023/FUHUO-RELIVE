@@ -47,6 +47,7 @@ const scriptsDir = path.join(rootDir, 'scripts');
 const configDir = path.join(rootDir, 'config');
 const memoryDir = path.join(rootDir, 'memory');
 const fuhuoDir = path.join(rootDir, 'fuhuo');
+const githubRecordDir = path.join(rootDir, 'github-record'); // 🆕 GitHub 参与记录
 const relivePageDir = path.join(rootDir, 'relive-page');
 
 const openclawDir = fs.existsSync('/root/.openclaw') ? '/root/.openclaw' : '/root/.clawdbot';
@@ -96,6 +97,7 @@ const buildEntries = async () => {
   const configFiles = await listFiles(configDir);
   const memoryFiles = await listFiles(memoryDir);
   const fuhuoFiles = await listFiles(fuhuoDir);
+  const githubRecordFiles = await listFiles(githubRecordDir); // 🆕
 
   for (const filePath of coreFiles) {
     const rel = path.relative(coreDir, filePath).split(path.sep).join('/');
@@ -125,6 +127,12 @@ const buildEntries = async () => {
   for (const filePath of fuhuoFiles) {
     const rel = path.relative(fuhuoDir, filePath).split(path.sep).join('/');
     entries.push({ local: filePath, rel: `fuhuo/${rel}` });
+  }
+
+  // 扫描 github-record 目录
+  for (const filePath of githubRecordFiles) {
+    const rel = path.relative(githubRecordDir, filePath).split(path.sep).join('/');
+    entries.push({ local: filePath, rel: `github-record/${rel}` });
   }
 
   // 扫描 relive-page 目录

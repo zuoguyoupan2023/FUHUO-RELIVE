@@ -18,8 +18,9 @@ const SCAN_DIRS = [
   'skills',
   'scripts',
   'config',
-  'memory',  // 🆕 添加 memory 目录（每日记忆）
-  'fuhuo',   // 🆕 添加 fuhuo 目录（复活协议文档）
+  'memory',      // 🆕 添加 memory 目录（每日记忆）
+  'fuhuo',       // 🆕 添加 fuhuo 目录（复活协议文档）
+  'github-record', // 🆕 添加 github-record 目录（GitHub 参与记录）
 ];
 
 // 扫描文件配置（绝对路径）
