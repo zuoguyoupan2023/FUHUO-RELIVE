@@ -9,21 +9,21 @@
 - BACKUP_R2_SECRET_ACCESS_KEY
 - BACKUP_R2_ACCOUNT_ID
 - BACKUP_R2_BUCKET_NAME
-- BACKUP_R2_ENDPOINT（可选）
 - BACKUP_R2_PREFIX（可选）
 
 ## 路径映射
 
 - 本地根目录：`/root/clawd`
-- 远端树文件：`{BACKUP_R2_PREFIX}/FUHUO-FILES-TREE.json`
+- 远端树文件：`openclaw/.metadata/FUHUO-FILES-TREE.json`
 - 远端文件根：`{BACKUP_R2_PREFIX}/openclaw/`
 - 远端相对路径 `openclaw/*` 恢复到 `/root/.openclaw` 或 `/root/.clawdbot`
 
 ## 云端存储结构
 
 ```
-FUHUO-FILES-TREE.json    # 文件树索引（根目录）
 openclaw/                # 文件目录
+├── .metadata/
+│   └── FUHUO-FILES-TREE.json    # 文件树索引
 ├── AGENTS.md
 ├── scripts/
 ├── config/
@@ -32,15 +32,9 @@ openclaw/                # 文件目录
 
 ## 使用方式
 
-1. 安装依赖
-```bash
-cd /root/clawd
-npm install @aws-sdk/client-s3
-```
+1. 将脚本保存为 `/root/clawd/scripts/fuhuo_relive.js`（已保存）
 
-2. 将脚本保存为 `/root/clawd/scripts/fuhuo_relive.js`（已保存）
-
-3. 执行归来
+2. 执行归来
 ```bash
 node /root/clawd/scripts/fuhuo_relive.js
 ```

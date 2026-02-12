@@ -9,21 +9,21 @@ Restaurer les fichiers depuis un bucket R2 indépendant vers le local, en écras
 - BACKUP_R2_SECRET_ACCESS_KEY
 - BACKUP_R2_ACCOUNT_ID
 - BACKUP_R2_BUCKET_NAME
-- BACKUP_R2_ENDPOINT (optionnel)
 - BACKUP_R2_PREFIX (optionnel)
 
 ## Mappage des chemins
 
 - Racine locale : `/root/clawd`
-- Fichier d’arborescence distant : `{BACKUP_R2_PREFIX}/FUHUO-FILES-TREE.json`
+- Fichier d’arborescence distant : `openclaw/.metadata/FUHUO-FILES-TREE.json`
 - Racine des fichiers distants : `{BACKUP_R2_PREFIX}/openclaw/`
 - Chemin relatif distant `openclaw/*` restauré vers `/root/.openclaw` ou `/root/.clawdbot`
 
 ## Structure de stockage cloud
 
 ```
-FUHUO-FILES-TREE.json    # Index de l’arborescence (racine)
 openclaw/                # Répertoire des fichiers
+├── .metadata/
+│   └── FUHUO-FILES-TREE.json    # Index de l’arborescence
 ├── AGENTS.md
 ├── scripts/
 ├── config/
@@ -32,15 +32,9 @@ openclaw/                # Répertoire des fichiers
 
 ## Utilisation
 
-1. Installer les dépendances
-```bash
-cd /root/clawd
-npm install @aws-sdk/client-s3
-```
+1. Enregistrer le script dans `/root/clawd/scripts/fuhuo_relive.js` (déjà enregistré)
 
-2. Enregistrer le script dans `/root/clawd/scripts/fuhuo_relive.js` (déjà enregistré)
-
-3. Exécuter Relive
+2. Exécuter Relive
 ```bash
 node /root/clawd/scripts/fuhuo_relive.js
 ```
