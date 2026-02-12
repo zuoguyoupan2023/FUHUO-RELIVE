@@ -34,13 +34,7 @@ openclaw/                # 文件目录
 
 ## 使用方式
 
-1. 安装依赖
-```bash
-cd /root/clawd
-npm install @aws-sdk/client-s3
-```
-
-2. 将脚本保存为 `/root/clawd/fuhuo/fuhuo_relive.js`（已保存）
+1. 将脚本保存为 `/root/clawd/fuhuo/fuhuo_relive.js`
 
 3. 执行归来
 ```bash
