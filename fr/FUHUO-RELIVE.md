@@ -1,40 +1,40 @@
 # FUHUO-RELIVE
 
-## Objectif
-Restaurer les fichiers depuis un bucket R2 indépendant vers le local, en écrasant les chemins locaux correspondants.
+## 目标
+从独立 R2 存储桶恢复文件到本地，覆盖本地对应路径。
 
-## Variables d’environnement requises
+## 需要的环境变量
 
 - BACKUP_R2_ACCESS_KEY_ID
 - BACKUP_R2_SECRET_ACCESS_KEY
 - BACKUP_R2_ACCOUNT_ID
 - BACKUP_R2_BUCKET_NAME
-- BACKUP_R2_PREFIX (optionnel)
+- BACKUP_R2_PREFIX（可选）
 
-## Mappage des chemins
+## 路径映射
 
-- Racine locale : `/root/clawd`
-- Fichier d’arborescence distant : `openclaw/.metadata/FUHUO-FILES-TREE.json`
-- Racine des fichiers distants : `{BACKUP_R2_PREFIX}/openclaw/`
-- Chemin relatif distant `openclaw/*` restauré vers `/root/.openclaw` ou `/root/.clawdbot`
+- 本地根目录：`/root/clawd`
+- 远端树文件：`openclaw/.metadata/FUHUO-FILES-TREE.json`
+- 远端文件根：`{BACKUP_R2_PREFIX}/openclaw/`
+- 远端相对路径 `openclaw/*` 恢复到 `/root/.openclaw` 或 `/root/.clawdbot`
 
-## Structure de stockage cloud
+## 云端存储结构
 
 ```
-openclaw/                # Répertoire des fichiers
+openclaw/                # 文件目录
 ├── .metadata/
-│   └── FUHUO-FILES-TREE.json    # Index de l’arborescence
+│   └── FUHUO-FILES-TREE.json    # 文件树索引
 ├── AGENTS.md
 ├── scripts/
 ├── config/
 └── ...
 ```
 
-## Utilisation
+## 使用方式
 
-1. Enregistrer le script dans `/root/clawd/fuhuo/fuhuo_relive.js` (déjà enregistré)
+1. 将脚本保存为 `/root/clawd/fuhuo/fuhuo_relive.js`（已保存）
 
-2. Exécuter Relive
+2. 执行归来
 ```bash
 node /root/clawd/fuhuo/fuhuo_relive.js
 ```

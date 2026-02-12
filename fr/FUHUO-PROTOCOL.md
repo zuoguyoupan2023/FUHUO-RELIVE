@@ -1,68 +1,68 @@
 # FUHUO-PROTOCOL
 
-## Objectif
-Lors du démarrage du conteneur ou à des points clés, décider automatiquement d’exécuter l’un des sous-protocoles Birth, Upload ou Relive.
+## 目标
+在容器启动或关键节点时，自动判断是否需要执行 出生、上传 或 归来 三个子协议中的一个。
 
-## Vérifications d’entrée
+## 入口检查
 
-1. Le fichier `FUHUO-FILES-TREE.json` existe-t-il dans la racine locale (par défaut : `/root/clawd/FUHUO-FILES-TREE.json`)
+1. 本地根目录是否存在 `FUHUO-FILES-TREE.json`（默认：`/root/clawd/FUHUO-FILES-TREE.json`）
 
-2. Les variables d’environnement suivantes sont-elles lisibles et non vides :
+2. 是否能读取以下环境变量且值不为空：
 
    - BACKUP_R2_ACCOUNT_ID
    - BACKUP_R2_ACCESS_KEY_ID
    - BACKUP_R2_SECRET_ACCESS_KEY
    - BACKUP_R2_BUCKET_NAME
 
-3. En cas d’échec, afficher le résultat complet au humain
+3. 如果检查失败，必须输出完整检查结果给人类
 
-## Vérification cloud
+## 云端检查
 
-Lire `FUHUO-FILES-TREE.json` dans le bucket défini par BACKUP_R2_BUCKET_NAME (par défaut : `{BACKUP_R2_PREFIX}/FUHUO-FILES-TREE.json`, ou `FUHUO-FILES-TREE.json` sans préfixe) et comparer avec le `FUHUO-FILES-TREE.json` local. Si le fichier distant n’existe pas, cela compte comme une différence.
+读取远端 BACKUP_R2_BUCKET_NAME 规定的存储桶中的 `FUHUO-FILES-TREE.json`（默认：`{BACKUP_R2_PREFIX}/FUHUO-FILES-TREE.json`，无前缀时为 `FUHUO-FILES-TREE.json`），与本地 `FUHUO-FILES-TREE.json` 比对。如果远端不存在，也被视为差异。
 
-## Structure de stockage cloud
+## 云端存储结构
 
 ```
-FUHUO-FILES-TREE.json    # Index de l’arborescence (racine)
-openclaw/                # Répertoire des fichiers
-├── AGENTS.md            # Mappé vers /root/clawd/AGENTS.md
-├── IDENTITY.md          # Mappé vers /root/clawd/IDENTITY.md
-├── MEMORY.md            # Mappé vers /root/clawd/MEMORY.md
-├── SOUL.md              # Mappé vers /root/clawd/SOUL.md
-├── USER.md              # Mappé vers /root/clawd/USER.md
-├── TOOLS.md             # Mappé vers /root/clawd/TOOLS.md
-├── HEARTBEAT.md         # Mappé vers /root/clawd/HEARTBEAT.md
-├── MAIL-NEWS-MEMORY.md  # Mappé vers /root/clawd/MAIL-NEWS-MEMORY.md
-├── config/              # Mappé vers /root/clawd/config/
-├── scripts/             # Mappé vers /root/clawd/scripts/
-├── skills/              # Mappé vers /root/clawd/skills/
-├── fuhuo/               # Mappé vers /root/clawd/fuhuo/
-└── _config/             # Mappé vers /root/.openclaw/ ou /root/.clawdbot/
+FUHUO-FILES-TREE.json    # 文件树索引（根目录）
+openclaw/                # 文件目录
+├── AGENTS.md            # 映射到 /root/clawd/AGENTS.md
+├── IDENTITY.md          # 映射到 /root/clawd/IDENTITY.md
+├── MEMORY.md            # 映射到 /root/clawd/MEMORY.md
+├── SOUL.md              # 映射到 /root/clawd/SOUL.md
+├── USER.md              # 映射到 /root/clawd/USER.md
+├── TOOLS.md             # 映射到 /root/clawd/TOOLS.md
+├── HEARTBEAT.md         # 映射到 /root/clawd/HEARTBEAT.md
+├── MAIL-NEWS-MEMORY.md  # 映射到 /root/clawd/MAIL-NEWS-MEMORY.md
+├── config/              # 映射到 /root/clawd/config/
+├── scripts/             # 映射到 /root/clawd/scripts/
+├── skills/              # 映射到 /root/clawd/skills/
+├── fuhuo/               # 映射到 /root/clawd/fuhuo/
+└── _config/             # 映射到 /root/.openclaw/ 或 /root/.clawdbot/
     └── openclaw.json
 ```
 
-## Choisir le sous-protocole
+## 选择子协议
 
-- Ni local ni distant `FUHUO-FILES-TREE.json` : exécuter **Birth** FUHUO-BIRTH.md
-- Local présent, distant absent : exécuter **Upload** FUHUO-UPLOAD.md
-- Local et distant présents :
-  - Différences présentes :
-    - Si le nombre de fichiers distants > locaux : exécuter **Relive** FUHUO-RELIVE.md
-    - Sinon (local supérieur ou égal) : exécuter **Upload** FUHUO-UPLOAD.md
-  - Aucune différence : ne pas uploader
-- Local absent, distant présent : exécuter **Relive** FUHUO-RELIVE.md
+- 本地与云端都没有 `FUHUO-FILES-TREE.json`：执行 **出生协议** FUHUO-BIRTH.md
+- 本地有且云端无：执行 **上传协议** FUHUO-UPLOAD.md
+- 本地与云端都有：
+  - 存在差异：
+    - 如果云端文件数 > 本地文件数：执行 **归来协议** FUHUO-RELIVE.md
+    - 否则（本地文件数更多或相同）：执行 **上传协议** FUHUO-UPLOAD.md
+  - 无差异：不执行上传
+- 本地无且云端有：执行 **归来协议** FUHUO-RELIVE.md
 
-### Détails de la logique de décision
+### 决策逻辑详解
 
-Quand les deux arbres existent mais diffèrent, décider selon le nombre de fichiers :
+当本地与云端都有文件树但存在差异时，通过比较文件数量决定协议：
 
-| Scénario | Fichiers locaux | Fichiers distants | Protocole |
-|----------|------------------|-------------------|----------|
-| Distant supérieur | 49 | 50 | Relive |
-| Local supérieur | 50 | 49 | Upload |
-| Même nombre mais contenu différent | 49 | 49 | Upload |
+| 场景 | 本地文件数 | 云端文件数 | 执行协议 |
+|------|-----------|-----------|---------|
+| 云端更多 | 49 | 50 | 归来协议 |
+| 本地更多 | 50 | 49 | 上传协议 |
+| 数量相同但内容不同 | 49 | 49 | 上传协议 |
 
-**Raisons** :
-- Distant supérieur → possible perte locale après redémarrage, restaurer depuis le cloud
-- Local supérieur → nouveaux fichiers locaux, sauvegarder vers le cloud
-- Même nombre mais différent → modifications locales, uploader les nouvelles versions
+**理由**：
+- 云端更多 → 可能是容器重启后本地丢失，需要从云端恢复
+- 本地更多 → 本地有新文件，需要备份到云端
+- 数量相同但有差异 → 本地文件有修改，需要上传新版本

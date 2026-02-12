@@ -38,7 +38,7 @@ const skillsDir = path.join(rootDir, 'skills');
 const scriptsDir = path.join(rootDir, 'scripts');
 const configDir = path.join(rootDir, 'config');
 const memoryDir = path.join(rootDir, 'memory');
-const fuhuoDir = path.join(rootDir, 'fuhuo');
+const fuhuoDir = path.join(rootDir, 'fuhuo');  // 🆕 复活协议目录
 
 const openclawDir = fs.existsSync('/root/.openclaw') ? '/root/.openclaw' : '/root/.clawdbot';
 const openclawConfig = fs.existsSync(path.join(openclawDir, 'openclaw.json'))
@@ -80,12 +80,13 @@ const sha256 = async (filePath) => {
 const buildEntries = async () => {
   const entries = [];
 
+  // 扫描目录
   const coreFiles = await listFiles(coreDir);
   const skillsFiles = await listFiles(skillsDir);
   const scriptsFiles = await listFiles(scriptsDir);
   const configFiles = await listFiles(configDir);
   const memoryFiles = await listFiles(memoryDir);
-  const fuhuoFiles = await listFiles(fuhuoDir);
+  const fuhuoFiles = await listFiles(fuhuoDir);  // 🆕 扫描复活协议文件
 
   for (const filePath of coreFiles) {
     const rel = path.relative(coreDir, filePath).split(path.sep).join('/');
@@ -117,6 +118,7 @@ const buildEntries = async () => {
     entries.push({ local: filePath, rel: `fuhuo/${rel}` });
   }
 
+  // 核心文件（*.md）
   const corePatterns = [
     'AGENTS.md', 'IDENTITY.md', 'MEMORY.md', 'SOUL.md',
     'USER.md', 'TOOLS.md', 'HEARTBEAT.md', 'MAIL-NEWS-MEMORY.md'
@@ -129,6 +131,7 @@ const buildEntries = async () => {
     }
   }
 
+  // 配置文件 - 放到根目录的 _config/ 下，避免与 openclaw/ 混淆
   if (isFile(openclawConfig)) {
     const name = path.basename(openclawConfig);
     entries.push({ local: openclawConfig, rel: `_config/${name}` });
@@ -229,7 +232,7 @@ const deleteRemoteObjects = async (paths) => {
 };
 
 const run = async () => {
-  console.log('🚀 開始 FUHUO 上傳協議...\n');
+  console.log('🚀 开始 FUHUO 上传协议...\n');
 
   const entries = await buildEntries();
   const tree = await buildTree(entries);
@@ -243,7 +246,7 @@ const run = async () => {
   const deleteList = [];
 
   console.log(`📊 本地文件: ${localMap.size}`);
-  console.log(`📊 遠端文件: ${remoteMap.size}\n`);
+  console.log(`📊 远端文件: ${remoteMap.size}\n`);
 
   for (const [rel, item] of localMap.entries()) {
     const remote = remoteMap.get(rel);
@@ -258,11 +261,11 @@ const run = async () => {
     }
   }
 
-  console.log(`📤 需要上傳: ${uploadList.length} 個文件`);
-  console.log(`🗑️  需要刪除: ${deleteList.length} 個文件\n`);
+  console.log(`📤 需要上传: ${uploadList.length} 个文件`);
+  console.log(`🗑️  需要删除: ${deleteList.length} 个文件\n`);
 
   if (uploadList.length > 0) {
-    console.log('開始上傳文件...');
+    console.log('开始上传文件...');
     for (const rel of uploadList) {
       const entry = entries.find((item) => item.rel === rel);
       if (!entry) continue;
@@ -274,18 +277,18 @@ const run = async () => {
   }
 
   if (deleteList.length > 0) {
-    console.log('\n刪除遠端文件...');
+    console.log('\n删除远端文件...');
     await deleteRemoteObjects(deleteList);
-    console.log(`  ✅ 已刪除 ${deleteList.length} 個文件`);
+    console.log(`  ✅ 已删除 ${deleteList.length} 个文件`);
   }
 
   const treeKey = `${basePrefix}FUHUO-FILES-TREE.json`;
   await uploadObject(treeKey, await fsp.readFile(treePath));
 
   console.log('\n' + '─'.repeat(60));
-  console.log('✅ FUHUO 上傳完成！');
-  console.log(`📦 儲存桶: ${bucket}`);
-  console.log(`📁 前綴: ${basePrefix || '(root)'}`);
+  console.log('✅ FUHUO upload completed!');
+  console.log(`📦 存储桶: ${bucket}`);
+  console.log(`📁 前缀: ${basePrefix || '(root)'}`);
   console.log('─'.repeat(60));
 };
 

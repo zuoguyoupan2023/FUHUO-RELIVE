@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 
 /**
- * Protocole Relive FUHUO - Version autonome
- * Restaurer les fichiers d’un bucket R2 vers le local
- * N’utilise que les modules intégrés de Node.js, aucun package requis
+ * FUHUO 归来协议 - 自包含版本
+ * 从 R2 存储桶恢复文件到本地
+ * 只依赖 Node.js 内置模块，无需安装任何包
  *
- * Utilisation :
- * 1. Assurez-vous que les variables d’environnement sont définies :
+ * 使用方法：
+ * 1. 确保环境变量已设置：
  *    - BACKUP_R2_ACCESS_KEY_ID
  *    - BACKUP_R2_SECRET_ACCESS_KEY
  *    - BACKUP_R2_ACCOUNT_ID
  *    - BACKUP_R2_BUCKET_NAME
- * 2. Exécuter : node fuhuo_relive.js
+ * 2. 运行: node fuhuo_relive.js
  */
 
 const https = require('https');
@@ -20,7 +20,7 @@ const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
 
-// Vérifier les variables d’environnement
+// 检查环境变量
 const required = [
   'BACKUP_R2_ACCESS_KEY_ID',
   'BACKUP_R2_SECRET_ACCESS_KEY',
@@ -45,7 +45,7 @@ const rootDir = '/root/clawd';
 const openclawDir = fs.existsSync('/root/.openclaw') ? '/root/.openclaw' : '/root/.clawdbot';
 
 /**
- * Signature AWS V4
+ * AWS Signature V4 签名
  */
 function getAuthHeaders(method, path, queryParams = {}) {
   const now = new Date();
@@ -54,28 +54,28 @@ function getAuthHeaders(method, path, queryParams = {}) {
   const service = 's3';
   const region = 'auto';
 
-  // Construire la chaîne de requête
+  // 构建查询字符串
   const queryString = Object.entries(queryParams)
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([k, v]) => `${k}=${encodeURIComponent(v)}`)
     .join('&');
 
-  // Normaliser l’URI
+  // 规范化 URI
   const canonicalUri = path;
 
-  // Normaliser la chaîne de requête
+  // 规范化查询字符串
   const canonicalQuery = queryString;
 
-  // Normaliser les en-têtes
+  // 规范化头
   const canonicalHeaders = `host:${bucket}.${accountId}.r2.cloudflarestorage.com\nx-amz-content-sha256:UNSIGNED-PAYLOAD\nx-amz-date:${amzDate}\n`;
 
-  // Liste des en-têtes signés
+  // 签名头列表
   const signedHeaders = 'host;x-amz-content-sha256;x-amz-date';
 
-  // Hachage de la requête
+  // 请求哈希
   const payloadHash = 'UNSIGNED-PAYLOAD';
 
-  // Requête canonique
+  // 规范请求
   const canonicalRequest = [
     method,
     canonicalUri,
@@ -87,7 +87,7 @@ function getAuthHeaders(method, path, queryParams = {}) {
 
   const canonicalRequestHash = crypto.createHash('sha256').update(canonicalRequest).digest('hex');
 
-  // Chaîne à signer
+  // 待签名字符串
   const credentialScope = `${dateStamp}/${region}/${service}/aws4_request`;
   const stringToSign = [
     'AWS4-HMAC-SHA256',
@@ -96,16 +96,16 @@ function getAuthHeaders(method, path, queryParams = {}) {
     canonicalRequestHash
   ].join('\n');
 
-  // Dériver la clé de signature
+  // 计算签名密钥
   const kDate = hmacSha256(`AWS4${process.env.BACKUP_R2_SECRET_ACCESS_KEY}`, dateStamp);
   const kRegion = hmacSha256(kDate, region);
   const kService = hmacSha256(kRegion, service);
   const kSigning = hmacSha256(kService, 'aws4_request');
 
-  // Calculer la signature
+  // 计算签名
   const signature = crypto.createHmac('sha256', kSigning).update(stringToSign).digest('hex');
 
-  // Construire l’en-tête d’autorisation
+  // 构造授权头
   const authorization = `AWS4-HMAC-SHA256 Credential=${process.env.BACKUP_R2_ACCESS_KEY_ID}/${credentialScope}, SignedHeaders=${signedHeaders}, Signature=${signature}`;
 
   return {
@@ -120,7 +120,7 @@ function hmacSha256(key, data) {
 }
 
 /**
- * Envoyer une requête HTTPS
+ * 发送 HTTPS 请求
  */
 function request(method, key) {
   return new Promise((resolve, reject) => {
@@ -156,14 +156,14 @@ function request(method, key) {
 }
 
 /**
- * Récupérer l’objet distant
+ * 获取远程文件
  */
 async function fetchObject(key) {
   return await request('GET', key);
 }
 
 /**
- * Analyser l’arborescence
+ * 解析文件树
  */
 function parseTree(content) {
   const data = JSON.parse(content);
@@ -172,7 +172,7 @@ function parseTree(content) {
 }
 
 /**
- * Jointure de chemin sécurisée
+ * 安全路径拼接
  */
 function safeJoin(base, rel) {
   const normalized = path.normalize(rel);
@@ -183,17 +183,17 @@ function safeJoin(base, rel) {
 }
 
 /**
- * Restaurer un fichier unique
+ * 恢复单个文件
  */
 async function restoreFile(rel) {
-  // Chemin R2 : openclaw/xxx → local : /root/clawd/xxx
+  // R2 路径: openclaw/xxx → 本地: /root/clawd/xxx
   const r2Key = `${basePrefix}openclaw/${rel}`;
   const data = await fetchObject(r2Key);
 
   let targetBase = rootDir;
   let targetRel = rel;
 
-  // Traitement spécial : _config/ → /root/.openclaw ou /root/.clawdbot
+  // 特殊处理: _config/ → /root/.openclaw 或 /root/.clawdbot
   if (rel.startsWith('_config/')) {
     targetBase = openclawDir;
     targetRel = rel.slice('_config/'.length);
@@ -207,7 +207,7 @@ async function restoreFile(rel) {
 }
 
 /**
- * Fonction principale
+ * 主函数
  */
 async function main() {
   console.log('🔄 开始 FUHUO 归来协议...\n');
@@ -217,8 +217,8 @@ async function main() {
   console.log(`💾 本地路径: ${rootDir}`);
   console.log('');
 
-  // Récupérer l’arborescence
-  // Mise à jour 2026-02-12 : l’arborescence est dans openclaw/.metadata
+  // 获取文件树
+  // 2026-02-12 更新: 文件树在 openclaw/.metadata 目录
   const treeKey = `openclaw/.metadata/FUHUO-FILES-TREE.json`;
   console.log(`📋 读取文件树: ${treeKey}`);
 
@@ -229,7 +229,7 @@ async function main() {
 
     console.log(`📋 找到 ${relPaths.length} 个文件需要恢复\n`);
 
-    // Restaurer les fichiers
+    // 恢复文件
     let successCount = 0;
     let failCount = 0;
 
@@ -245,7 +245,7 @@ async function main() {
       }
     }
 
-    // Enregistrer l’arborescence locale
+    // 保存本地文件树
     const localTreePath = path.join(rootDir, 'FUHUO-FILES-TREE.json');
     await fsp.writeFile(localTreePath, treeContent);
     console.log(`\n📋 本地文件树已更新: ${localTreePath}`);

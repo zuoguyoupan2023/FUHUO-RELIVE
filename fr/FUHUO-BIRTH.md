@@ -1,56 +1,56 @@
 # FUHUO-BIRTH
 
-## Objectif
-Quand `FUHUO-FILES-TREE.json` n’existe ni localement ni dans le cloud, générer l’arborescence de base et initialiser la base cloud.
+## 目标
+在本地与云端都不存在 `FUHUO-FILES-TREE.json` 时，生成基线文件树并初始化云端基线。
 
-## Portée
+## 作用范围
 
-Analyse par défaut (enregistre path/hash/size/mtimeMs) :
+默认扫描并生成文件树（记录 path/hash/size/mtimeMs）：
 - `/root/clawd/core`
 - `/root/clawd/skills`
 - `/root/clawd/scripts`
 - `/root/clawd/config`
 - `/root/clawd/memory`
 - `/root/clawd/fuhuo`
-- `/root/.openclaw/openclaw.json` ou `/root/.clawdbot/clawdbot.json`
-- `/root/clawd/*.md` fichiers cœur (AGENTS/IDENTITY/MEMORY/SOUL/USER/TOOLS/HEARTBEAT/MAIL-NEWS-MEMORY)
+- `/root/.openclaw/openclaw.json` 或 `/root/.clawdbot/clawdbot.json`
+- `/root/clawd/*.md` 核心文件（AGENTS/IDENTITY/MEMORY/SOUL/USER/TOOLS/HEARTBEAT/MAIL-NEWS-MEMORY）
 
-Répertoires exclus :
+排除目录：
 - `.git`
 - `node_modules`
 
-## Étapes
+## 执行步骤
 
-### 1. Générer l’arborescence locale
+### 1. 生成本地文件树
 
 ```bash
 node /root/clawd/scripts/generate_file_tree.js
 ```
 
-### 2. Exécuter le protocole Upload
+### 2. 执行上传协议
 
 ```bash
 node /root/clawd/fuhuo/fuhuo_upload.js
 ```
 
-Référence : [FUHUO-UPLOAD.md](./FUHUO-UPLOAD.md)
+参考：[FUHUO-UPLOAD.md](./FUHUO-UPLOAD.md)
 
-### 3. Modifier HEARTBEAT.md
+### 3. 修改HEARTBEAT.md
 
-Ajouter une règle dans HEARTBEAT.md :
+将HEARTBEAT.md中增加一项规则：
 
-Exécuter le protocole Relive et décider s’il faut exécuter le protocole Relive-Upload ; si nécessaire, l’exécuter.
+执行复活协议，并判断是否需要执行 复活-上传协议，如果需要执行，就执行。
 
-## Chemins des scripts
+## 脚本路径
 
-- Génération de l’arborescence : `/root/clawd/scripts/generate_file_tree.js`
-- Script Upload : `/root/clawd/fuhuo/fuhuo_upload.js`
+- 文件树生成：`/root/clawd/scripts/generate_file_tree.js`
+- 上传脚本：`/root/clawd/fuhuo/fuhuo_upload.js`
 
-## Structure de stockage cloud
+## 云端存储结构
 
 ```
-FUHUO-FILES-TREE.json    # Index de l’arborescence (racine)
-openclaw/                # Répertoire des fichiers
+FUHUO-FILES-TREE.json    # 文件树索引（根目录）
+openclaw/                # 文件目录
 ├── AGENTS.md
 ├── IDENTITY.md
 ├── MEMORY.md
@@ -66,8 +66,8 @@ openclaw/                # Répertoire des fichiers
 └── _config/
 ```
 
-## Cas d’usage
+## 使用场景
 
-- **Premier déploiement** : initialiser la sauvegarde cloud
-- **Réinitialiser la sauvegarde** : reconstruire la base après nettoyage du cloud
-- **Migration de stockage** : reconstruire lors du changement de bucket
+- **首次部署**：初始化云端备份
+- **重置备份**：清空云端后重新建立基线
+- **迁移存储**：更换存储桶时重建

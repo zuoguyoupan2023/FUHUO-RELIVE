@@ -1,29 +1,29 @@
 # FUHUO-RELIVE
 
-## 目標
-從獨立 R2 儲存桶恢復文件到本地，覆蓋本地對應路徑。
+## 目标
+从独立 R2 存储桶恢复文件到本地，覆盖本地对应路径。
 
-## 需要的環境變數
+## 需要的环境变量
 
 - BACKUP_R2_ACCESS_KEY_ID
 - BACKUP_R2_SECRET_ACCESS_KEY
 - BACKUP_R2_ACCOUNT_ID
 - BACKUP_R2_BUCKET_NAME
-- BACKUP_R2_PREFIX（可選）
+- BACKUP_R2_PREFIX（可选）
 
-## 路徑對應
+## 路径映射
 
-- 本地根目錄：`/root/clawd`
-- 遠端樹文件：`openclaw/.metadata/FUHUO-FILES-TREE.json`
-- 遠端文件根：`{BACKUP_R2_PREFIX}/openclaw/`
-- 遠端相對路徑 `openclaw/*` 恢復到 `/root/.openclaw` 或 `/root/.clawdbot`
+- 本地根目录：`/root/clawd`
+- 远端树文件：`openclaw/.metadata/FUHUO-FILES-TREE.json`
+- 远端文件根：`{BACKUP_R2_PREFIX}/openclaw/`
+- 远端相对路径 `openclaw/*` 恢复到 `/root/.openclaw` 或 `/root/.clawdbot`
 
-## 雲端儲存結構
+## 云端存储结构
 
 ```
-openclaw/                # 文件目錄
+openclaw/                # 文件目录
 ├── .metadata/
-│   └── FUHUO-FILES-TREE.json    # 文件樹索引
+│   └── FUHUO-FILES-TREE.json    # 文件树索引
 ├── AGENTS.md
 ├── scripts/
 ├── config/
@@ -32,9 +32,9 @@ openclaw/                # 文件目錄
 
 ## 使用方式
 
-1. 將腳本保存為 `/root/clawd/fuhuo/fuhuo_relive.js`（已保存）
+1. 将脚本保存为 `/root/clawd/fuhuo/fuhuo_relive.js`（已保存）
 
-2. 執行歸來
+2. 执行归来
 ```bash
 node /root/clawd/fuhuo/fuhuo_relive.js
 ```

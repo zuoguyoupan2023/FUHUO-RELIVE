@@ -1,56 +1,56 @@
 # FUHUO-BIRTH
 
-## Цель
-Когда `FUHUO-FILES-TREE.json` отсутствует и локально, и в облаке, создать базовое дерево файлов и инициализировать базу в облаке.
+## 目标
+在本地与云端都不存在 `FUHUO-FILES-TREE.json` 时，生成基线文件树并初始化云端基线。
 
-## Область действия
+## 作用范围
 
-Сканируются по умолчанию (запись path/hash/size/mtimeMs):
+默认扫描并生成文件树（记录 path/hash/size/mtimeMs）：
 - `/root/clawd/core`
 - `/root/clawd/skills`
 - `/root/clawd/scripts`
 - `/root/clawd/config`
 - `/root/clawd/memory`
 - `/root/clawd/fuhuo`
-- `/root/.openclaw/openclaw.json` или `/root/.clawdbot/clawdbot.json`
-- `/root/clawd/*.md` ключевые файлы (AGENTS/IDENTITY/MEMORY/SOUL/USER/TOOLS/HEARTBEAT/MAIL-NEWS-MEMORY)
+- `/root/.openclaw/openclaw.json` 或 `/root/.clawdbot/clawdbot.json`
+- `/root/clawd/*.md` 核心文件（AGENTS/IDENTITY/MEMORY/SOUL/USER/TOOLS/HEARTBEAT/MAIL-NEWS-MEMORY）
 
-Исключаемые каталоги:
+排除目录：
 - `.git`
 - `node_modules`
 
-## Шаги
+## 执行步骤
 
-### 1. Сгенерировать локальное дерево файлов
+### 1. 生成本地文件树
 
 ```bash
 node /root/clawd/scripts/generate_file_tree.js
 ```
 
-### 2. Выполнить протокол Upload
+### 2. 执行上传协议
 
 ```bash
 node /root/clawd/fuhuo/fuhuo_upload.js
 ```
 
-Ссылка: [FUHUO-UPLOAD.md](./FUHUO-UPLOAD.md)
+参考：[FUHUO-UPLOAD.md](./FUHUO-UPLOAD.md)
 
-### 3. Изменить HEARTBEAT.md
+### 3. 修改HEARTBEAT.md
 
-Добавить правило в HEARTBEAT.md:
+将HEARTBEAT.md中增加一项规则：
 
-Выполнить протокол Relive и определить, нужно ли запускать протокол Relive-Upload; если нужно, выполнить.
+执行复活协议，并判断是否需要执行 复活-上传协议，如果需要执行，就执行。
 
-## Пути скриптов
+## 脚本路径
 
-- Генерация дерева: `/root/clawd/scripts/generate_file_tree.js`
-- Скрипт Upload: `/root/clawd/fuhuo/fuhuo_upload.js`
+- 文件树生成：`/root/clawd/scripts/generate_file_tree.js`
+- 上传脚本：`/root/clawd/fuhuo/fuhuo_upload.js`
 
-## Структура хранения в облаке
+## 云端存储结构
 
 ```
-FUHUO-FILES-TREE.json    # Индекс дерева файлов (корень)
-openclaw/                # Каталог файлов
+FUHUO-FILES-TREE.json    # 文件树索引（根目录）
+openclaw/                # 文件目录
 ├── AGENTS.md
 ├── IDENTITY.md
 ├── MEMORY.md
@@ -66,8 +66,8 @@ openclaw/                # Каталог файлов
 └── _config/
 ```
 
-## Сценарии использования
+## 使用场景
 
-- **Первый деплой**: инициализация облачной резервной копии
-- **Сброс резервной копии**: очистка облака и создание базы заново
-- **Миграция хранилища**: перестроение при смене бакета
+- **首次部署**：初始化云端备份
+- **重置备份**：清空云端后重新建立基线
+- **迁移存储**：更换存储桶时重建

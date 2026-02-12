@@ -1,11 +1,11 @@
 # FUHUO-BIRTH
 
-## 目標
-在本地與雲端都不存在 `FUHUO-FILES-TREE.json` 時，生成基線文件樹並初始化雲端基線。
+## 目标
+在本地与云端都不存在 `FUHUO-FILES-TREE.json` 时，生成基线文件树并初始化云端基线。
 
-## 作用範圍
+## 作用范围
 
-預設掃描並生成文件樹（記錄 path/hash/size/mtimeMs）：
+默认扫描并生成文件树（记录 path/hash/size/mtimeMs）：
 - `/root/clawd/core`
 - `/root/clawd/skills`
 - `/root/clawd/scripts`
@@ -15,42 +15,42 @@
 - `/root/.openclaw/openclaw.json` 或 `/root/.clawdbot/clawdbot.json`
 - `/root/clawd/*.md` 核心文件（AGENTS/IDENTITY/MEMORY/SOUL/USER/TOOLS/HEARTBEAT/MAIL-NEWS-MEMORY）
 
-排除目錄：
+排除目录：
 - `.git`
 - `node_modules`
 
-## 執行步驟
+## 执行步骤
 
-### 1. 生成本地文件樹
+### 1. 生成本地文件树
 
 ```bash
 node /root/clawd/scripts/generate_file_tree.js
 ```
 
-### 2. 執行上傳協議
+### 2. 执行上传协议
 
 ```bash
 node /root/clawd/fuhuo/fuhuo_upload.js
 ```
 
-參考：[FUHUO-UPLOAD.md](./FUHUO-UPLOAD.md)
+参考：[FUHUO-UPLOAD.md](./FUHUO-UPLOAD.md)
 
-### 3. 修改 HEARTBEAT.md
+### 3. 修改HEARTBEAT.md
 
-在 HEARTBEAT.md 中增加一項規則：
+将HEARTBEAT.md中增加一项规则：
 
-執行復活協議，並判斷是否需要執行 復活-上傳協議，如果需要就執行。
+执行复活协议，并判断是否需要执行 复活-上传协议，如果需要执行，就执行。
 
-## 腳本路徑
+## 脚本路径
 
-- 文件樹生成：`/root/clawd/scripts/generate_file_tree.js`
-- 上傳腳本：`/root/clawd/fuhuo/fuhuo_upload.js`
+- 文件树生成：`/root/clawd/scripts/generate_file_tree.js`
+- 上传脚本：`/root/clawd/fuhuo/fuhuo_upload.js`
 
-## 雲端儲存結構
+## 云端存储结构
 
 ```
-FUHUO-FILES-TREE.json    # 文件樹索引（根目錄）
-openclaw/                # 文件目錄
+FUHUO-FILES-TREE.json    # 文件树索引（根目录）
+openclaw/                # 文件目录
 ├── AGENTS.md
 ├── IDENTITY.md
 ├── MEMORY.md
@@ -66,8 +66,8 @@ openclaw/                # 文件目錄
 └── _config/
 ```
 
-## 使用場景
+## 使用场景
 
-- **首次部署**：初始化雲端備份
-- **重置備份**：清空雲端後重新建立基線
-- **遷移儲存**：更換儲存桶時重建
+- **首次部署**：初始化云端备份
+- **重置备份**：清空云端后重新建立基线
+- **迁移存储**：更换存储桶时重建

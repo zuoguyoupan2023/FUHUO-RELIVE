@@ -1,68 +1,68 @@
 # FUHUO-PROTOCOL
 
-## Цель
-При запуске контейнера или в ключевых точках автоматически определить, какой подпроtocol выполнить: Birth, Upload или Relive.
+## 目标
+在容器启动或关键节点时，自动判断是否需要执行 出生、上传 或 归来 三个子协议中的一个。
 
-## Проверки входа
+## 入口检查
 
-1. Существует ли `FUHUO-FILES-TREE.json` в локальной корневой директории (по умолчанию: `/root/clawd/FUHUO-FILES-TREE.json`)
+1. 本地根目录是否存在 `FUHUO-FILES-TREE.json`（默认：`/root/clawd/FUHUO-FILES-TREE.json`）
 
-2. Можно ли прочитать следующие переменные окружения и не пусты ли они:
+2. 是否能读取以下环境变量且值不为空：
 
    - BACKUP_R2_ACCOUNT_ID
    - BACKUP_R2_ACCESS_KEY_ID
    - BACKUP_R2_SECRET_ACCESS_KEY
    - BACKUP_R2_BUCKET_NAME
 
-3. При провале проверки вывести полный результат человеку
+3. 如果检查失败，必须输出完整检查结果给人类
 
-## Проверка облака
+## 云端检查
 
-Считать `FUHUO-FILES-TREE.json` из бакета BACKUP_R2_BUCKET_NAME (по умолчанию: `{BACKUP_R2_PREFIX}/FUHUO-FILES-TREE.json`, или `FUHUO-FILES-TREE.json` без префикса) и сравнить с локальным `FUHUO-FILES-TREE.json`. Если удалённого файла нет, считать это различием.
+读取远端 BACKUP_R2_BUCKET_NAME 规定的存储桶中的 `FUHUO-FILES-TREE.json`（默认：`{BACKUP_R2_PREFIX}/FUHUO-FILES-TREE.json`，无前缀时为 `FUHUO-FILES-TREE.json`），与本地 `FUHUO-FILES-TREE.json` 比对。如果远端不存在，也被视为差异。
 
-## Структура хранения в облаке
+## 云端存储结构
 
 ```
-FUHUO-FILES-TREE.json    # Индекс дерева файлов (корень)
-openclaw/                # Каталог файлов
-├── AGENTS.md            # Отображается на /root/clawd/AGENTS.md
-├── IDENTITY.md          # Отображается на /root/clawd/IDENTITY.md
-├── MEMORY.md            # Отображается на /root/clawd/MEMORY.md
-├── SOUL.md              # Отображается на /root/clawd/SOUL.md
-├── USER.md              # Отображается на /root/clawd/USER.md
-├── TOOLS.md             # Отображается на /root/clawd/TOOLS.md
-├── HEARTBEAT.md         # Отображается на /root/clawd/HEARTBEAT.md
-├── MAIL-NEWS-MEMORY.md  # Отображается на /root/clawd/MAIL-NEWS-MEMORY.md
-├── config/              # Отображается на /root/clawd/config/
-├── scripts/             # Отображается на /root/clawd/scripts/
-├── skills/              # Отображается на /root/clawd/skills/
-├── fuhuo/               # Отображается на /root/clawd/fuhuo/
-└── _config/             # Отображается на /root/.openclaw/ или /root/.clawdbot/
+FUHUO-FILES-TREE.json    # 文件树索引（根目录）
+openclaw/                # 文件目录
+├── AGENTS.md            # 映射到 /root/clawd/AGENTS.md
+├── IDENTITY.md          # 映射到 /root/clawd/IDENTITY.md
+├── MEMORY.md            # 映射到 /root/clawd/MEMORY.md
+├── SOUL.md              # 映射到 /root/clawd/SOUL.md
+├── USER.md              # 映射到 /root/clawd/USER.md
+├── TOOLS.md             # 映射到 /root/clawd/TOOLS.md
+├── HEARTBEAT.md         # 映射到 /root/clawd/HEARTBEAT.md
+├── MAIL-NEWS-MEMORY.md  # 映射到 /root/clawd/MAIL-NEWS-MEMORY.md
+├── config/              # 映射到 /root/clawd/config/
+├── scripts/             # 映射到 /root/clawd/scripts/
+├── skills/              # 映射到 /root/clawd/skills/
+├── fuhuo/               # 映射到 /root/clawd/fuhuo/
+└── _config/             # 映射到 /root/.openclaw/ 或 /root/.clawdbot/
     └── openclaw.json
 ```
 
-## Выбор подпроtocolа
+## 选择子协议
 
-- Нет `FUHUO-FILES-TREE.json` ни локально, ни в облаке: выполнить **Birth** FUHUO-BIRTH.md
-- Локально есть, в облаке нет: выполнить **Upload** FUHUO-UPLOAD.md
-- И локально, и в облаке есть:
-  - Есть различия:
-    - Если количество файлов в облаке > локального: выполнить **Relive** FUHUO-RELIVE.md
-    - Иначе (локальное больше или равно): выполнить **Upload** FUHUO-UPLOAD.md
-  - Нет различий: не выполнять Upload
-- Локально нет, в облаке есть: выполнить **Relive** FUHUO-RELIVE.md
+- 本地与云端都没有 `FUHUO-FILES-TREE.json`：执行 **出生协议** FUHUO-BIRTH.md
+- 本地有且云端无：执行 **上传协议** FUHUO-UPLOAD.md
+- 本地与云端都有：
+  - 存在差异：
+    - 如果云端文件数 > 本地文件数：执行 **归来协议** FUHUO-RELIVE.md
+    - 否则（本地文件数更多或相同）：执行 **上传协议** FUHUO-UPLOAD.md
+  - 无差异：不执行上传
+- 本地无且云端有：执行 **归来协议** FUHUO-RELIVE.md
 
-### Детали логики решения
+### 决策逻辑详解
 
-Если дерево есть и локально, и в облаке, но оно отличается, решение принимается по количеству файлов:
+当本地与云端都有文件树但存在差异时，通过比较文件数量决定协议：
 
-| Сценарий | Локальные файлы | Облачные файлы | Протокол |
-|----------|-----------------|----------------|----------|
-| В облаке больше | 49 | 50 | Relive |
-| Локально больше | 50 | 49 | Upload |
-| Количество равно, но контент отличается | 49 | 49 | Upload |
+| 场景 | 本地文件数 | 云端文件数 | 执行协议 |
+|------|-----------|-----------|---------|
+| 云端更多 | 49 | 50 | 归来协议 |
+| 本地更多 | 50 | 49 | 上传协议 |
+| 数量相同但内容不同 | 49 | 49 | 上传协议 |
 
-**Причина**:
-- В облаке больше → возможно, локальные файлы потеряны после перезапуска, нужна восстановление
-- Локально больше → есть новые локальные файлы, нужно загрузить в облако
-- Равно, но отличается → локальные файлы изменены, загрузить новые версии
+**理由**：
+- 云端更多 → 可能是容器重启后本地丢失，需要从云端恢复
+- 本地更多 → 本地有新文件，需要备份到云端
+- 数量相同但有差异 → 本地文件有修改，需要上传新版本

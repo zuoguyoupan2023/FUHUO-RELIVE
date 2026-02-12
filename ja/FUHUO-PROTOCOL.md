@@ -1,68 +1,68 @@
 # FUHUO-PROTOCOL
 
-## 目的
-コンテナ起動や重要タイミングで、出生・上传・复活のいずれかの子プロトコルを自動判定して実行する。
+## 目标
+在容器启动或关键节点时，自动判断是否需要执行 出生、上传 或 归来 三个子协议中的一个。
 
-## 入口チェック
+## 入口检查
 
-1. ローカルのルートに `FUHUO-FILES-TREE.json` が存在するか（デフォルト：`/root/clawd/FUHUO-FILES-TREE.json`）
+1. 本地根目录是否存在 `FUHUO-FILES-TREE.json`（默认：`/root/clawd/FUHUO-FILES-TREE.json`）
 
-2. 以下の環境変数が読み取れ、空でないか：
+2. 是否能读取以下环境变量且值不为空：
 
    - BACKUP_R2_ACCOUNT_ID
    - BACKUP_R2_ACCESS_KEY_ID
    - BACKUP_R2_SECRET_ACCESS_KEY
    - BACKUP_R2_BUCKET_NAME
 
-3. 失敗した場合、完全なチェック結果を人間へ出力する
+3. 如果检查失败，必须输出完整检查结果给人类
 
-## クラウドチェック
+## 云端检查
 
-BACKUP_R2_BUCKET_NAME のバケットから `FUHUO-FILES-TREE.json` を読み込み（デフォルト：`{BACKUP_R2_PREFIX}/FUHUO-FILES-TREE.json`、プレフィックス無しの場合は `FUHUO-FILES-TREE.json`）、ローカルの `FUHUO-FILES-TREE.json` と比較する。リモートが存在しない場合も差分とみなす。
+读取远端 BACKUP_R2_BUCKET_NAME 规定的存储桶中的 `FUHUO-FILES-TREE.json`（默认：`{BACKUP_R2_PREFIX}/FUHUO-FILES-TREE.json`，无前缀时为 `FUHUO-FILES-TREE.json`），与本地 `FUHUO-FILES-TREE.json` 比对。如果远端不存在，也被视为差异。
 
-## クラウド保存構造
+## 云端存储结构
 
 ```
-FUHUO-FILES-TREE.json    # ファイルツリー索引（ルート）
-openclaw/                # ファイルディレクトリ
-├── AGENTS.md            # /root/clawd/AGENTS.md に対応
-├── IDENTITY.md          # /root/clawd/IDENTITY.md に対応
-├── MEMORY.md            # /root/clawd/MEMORY.md に対応
-├── SOUL.md              # /root/clawd/SOUL.md に対応
-├── USER.md              # /root/clawd/USER.md に対応
-├── TOOLS.md             # /root/clawd/TOOLS.md に対応
-├── HEARTBEAT.md         # /root/clawd/HEARTBEAT.md に対応
-├── MAIL-NEWS-MEMORY.md  # /root/clawd/MAIL-NEWS-MEMORY.md に対応
-├── config/              # /root/clawd/config/ に対応
-├── scripts/             # /root/clawd/scripts/ に対応
-├── skills/              # /root/clawd/skills/ に対応
-├── fuhuo/               # /root/clawd/fuhuo/ に対応
-└── _config/             # /root/.openclaw/ または /root/.clawdbot/ に対応
+FUHUO-FILES-TREE.json    # 文件树索引（根目录）
+openclaw/                # 文件目录
+├── AGENTS.md            # 映射到 /root/clawd/AGENTS.md
+├── IDENTITY.md          # 映射到 /root/clawd/IDENTITY.md
+├── MEMORY.md            # 映射到 /root/clawd/MEMORY.md
+├── SOUL.md              # 映射到 /root/clawd/SOUL.md
+├── USER.md              # 映射到 /root/clawd/USER.md
+├── TOOLS.md             # 映射到 /root/clawd/TOOLS.md
+├── HEARTBEAT.md         # 映射到 /root/clawd/HEARTBEAT.md
+├── MAIL-NEWS-MEMORY.md  # 映射到 /root/clawd/MAIL-NEWS-MEMORY.md
+├── config/              # 映射到 /root/clawd/config/
+├── scripts/             # 映射到 /root/clawd/scripts/
+├── skills/              # 映射到 /root/clawd/skills/
+├── fuhuo/               # 映射到 /root/clawd/fuhuo/
+└── _config/             # 映射到 /root/.openclaw/ 或 /root/.clawdbot/
     └── openclaw.json
 ```
 
-## 子プロトコルの選択
+## 选择子协议
 
-- ローカルにもリモートにも `FUHUO-FILES-TREE.json` がない：**出生协议** FUHUO-BIRTH.md を実行
-- ローカルにありリモートにない：**上传协议** FUHUO-UPLOAD.md を実行
-- 両方にある：
-  - 差分あり：
-    - リモートのファイル数 > ローカルのファイル数：**复活协议** FUHUO-RELIVE.md を実行
-    - それ以外（ローカルが多いまたは同数）：**上传协议** FUHUO-UPLOAD.md を実行
-  - 差分なし：Upload を実行しない
-- ローカルになくリモートにある：**复活协议** FUHUO-RELIVE.md を実行
+- 本地与云端都没有 `FUHUO-FILES-TREE.json`：执行 **出生协议** FUHUO-BIRTH.md
+- 本地有且云端无：执行 **上传协议** FUHUO-UPLOAD.md
+- 本地与云端都有：
+  - 存在差异：
+    - 如果云端文件数 > 本地文件数：执行 **归来协议** FUHUO-RELIVE.md
+    - 否则（本地文件数更多或相同）：执行 **上传协议** FUHUO-UPLOAD.md
+  - 无差异：不执行上传
+- 本地无且云端有：执行 **归来协议** FUHUO-RELIVE.md
 
-### 判定ロジックの詳細
+### 决策逻辑详解
 
-ローカルとリモートの両方にツリーがあるが差分がある場合、ファイル数で判断する：
+当本地与云端都有文件树但存在差异时，通过比较文件数量决定协议：
 
-| シナリオ | ローカル数 | リモート数 | 実行プロトコル |
-|----------|------------|------------|----------------|
-| リモートが多い | 49 | 50 | 复活协议 |
-| ローカルが多い | 50 | 49 | 上传协议 |
-| 同数だが内容が違う | 49 | 49 | 上传协议 |
+| 场景 | 本地文件数 | 云端文件数 | 执行协议 |
+|------|-----------|-----------|---------|
+| 云端更多 | 49 | 50 | 归来协议 |
+| 本地更多 | 50 | 49 | 上传协议 |
+| 数量相同但内容不同 | 49 | 49 | 上传协议 |
 
 **理由**：
-- リモートが多い → 再起動後にローカルが欠損の可能性、クラウドから復元
-- ローカルが多い → ローカルに新規ファイルがあるためクラウドへ保存
-- 同数だが差分あり → ローカル内容が変更、更新版をアップロード
+- 云端更多 → 可能是容器重启后本地丢失，需要从云端恢复
+- 本地更多 → 本地有新文件，需要备份到云端
+- 数量相同但有差异 → 本地文件有修改，需要上传新版本

@@ -1,54 +1,54 @@
 # FUHUO-UPLOAD
 
-## Objectif
-Générer le `FUHUO-FILES-TREE.json` local et effectuer la synchronisation différentielle (upload et suppression).
+## 目标
+生成本地 `FUHUO-FILES-TREE.json` 并执行差异化上传与删除同步。
 
-## Variables d’environnement requises
+## 需要的环境变量
 
 - BACKUP_R2_ACCESS_KEY_ID
 - BACKUP_R2_SECRET_ACCESS_KEY
 - BACKUP_R2_ACCOUNT_ID
 - BACKUP_R2_BUCKET_NAME
-- BACKUP_R2_ENDPOINT (optionnel)
-- BACKUP_R2_PREFIX (optionnel)
+- BACKUP_R2_ENDPOINT（可选）
+- BACKUP_R2_PREFIX（可选）
 
-## Mappage des chemins
+## 路径映射
 
-- Racine locale : `/root/clawd`
-- Fichier d’arborescence distant : `{BACKUP_R2_PREFIX}/FUHUO-FILES-TREE.json`
-- Racine des fichiers distants : `{BACKUP_R2_PREFIX}/openclaw/`
-- Règles de mappage :
-  - Local `/root/clawd/xxx` → Distant `openclaw/xxx`
-  - Local `/root/.openclaw/yyy` ou `/root/.clawdbot/yyy` → Distant `openclaw/_config/yyy`
+- 本地根目录：`/root/clawd`
+- 远端树文件：`{BACKUP_R2_PREFIX}/FUHUO-FILES-TREE.json`
+- 远端文件根：`{BACKUP_R2_PREFIX}/openclaw/`
+- 映射规则：
+  - 本地 `/root/clawd/xxx` → 远端 `openclaw/xxx`
+  - 本地 `/root/.openclaw/yyy` 或 `/root/.clawdbot/yyy` → 远端 `openclaw/_config/yyy`
 
-## Structure de stockage cloud
+## 云端存储结构
 
 ```
-FUHUO-FILES-TREE.json    # Index de l’arborescence (racine)
-openclaw/                # Répertoire des fichiers
+FUHUO-FILES-TREE.json    # 文件树索引（根目录）
+openclaw/                # 文件目录
 ├── AGENTS.md
 ├── scripts/
 ├── config/
 └── ...
 ```
 
-## Stratégie de diff
+## 差异策略
 
-- Nouveaux fichiers : upload
-- Modifications de contenu : upload basé sur le hash
-- Suppressions locales : suppression distante synchronisée
+- 新增文件：上传
+- 内容变更：基于 hash 变化上传
+- 本地已删除：远端同步删除
 
-## Utilisation
+## 使用方式
 
-1. Installer les dépendances
+1. 安装依赖
 ```bash
 cd /root/clawd
 npm install @aws-sdk/client-s3
 ```
 
-2. Enregistrer le script dans `/root/clawd/fuhuo/fuhuo_upload.js` (déjà enregistré)
+2. 将脚本保存为 `/root/clawd/fuhuo/fuhuo_upload.js`（已保存）
 
-3. Exécuter Upload
+3. 执行上传
 ```bash
 node /root/clawd/fuhuo/fuhuo_upload.js
 ```
