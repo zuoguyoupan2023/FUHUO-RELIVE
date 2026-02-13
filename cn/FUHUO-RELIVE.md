@@ -13,10 +13,10 @@ env | grep BACKUP_R2
 
 **期望输出**（应该看到这4个变量）：
 ```bash
-BACKUP_R2_ACCOUNT_ID=409198b57859944e8c4277c5a4236cb0
-BACKUP_R2_ACCESS_KEY_ID=d4f72e7ac3ff0055a6cab1301e826309
-BACKUP_R2_SECRET_ACCESS_KEY=81501e66f09be1abde87f9e41d2ffbee507db07ad95a10cc668cdd154c8e90f3
-BACKUP_R2_BUCKET_NAME=openclawbotonline-data-2
+BACKUP_R2_ACCOUNT_ID=your_account_id_here
+BACKUP_R2_ACCESS_KEY_ID=your_access_key_id_here
+BACKUP_R2_SECRET_ACCESS_KEY=your_secret_access_key_here
+BACKUP_R2_BUCKET_NAME=your_bucket_name_here
 ```
 
 ### 🔴 如果输出为空
@@ -38,10 +38,10 @@ BACKUP_R2_BUCKET_NAME=openclawbotonline-data-2
 
 | 变量名 | 用途 | 示例值 |
 |--------|------|--------|
-| `BACKUP_R2_ACCOUNT_ID` | Cloudflare 账户ID | `409198b57859944e8c4277c5a4236cb0` |
-| `BACKUP_R2_ACCESS_KEY_ID` | R2 访问密钥ID | `d4f72e7ac3ff0055a6cab1301e826309` |
-| `BACKUP_R2_SECRET_ACCESS_KEY` | R2 访问密钥 | `81501e66f09be1abde87f9e41d2ffbee507db07ad95a10cc668cdd154c8e90f3` |
-| `BACKUP_R2_BUCKET_NAME` | R2 存储桶名称 | `openclawbotonline-data-2` |
+| `BACKUP_R2_ACCOUNT_ID` | Cloudflare 账户ID | `your_account_id_here` |
+| `BACKUP_R2_ACCESS_KEY_ID` | R2 访问密钥ID | `your_access_key_id_here` |
+| `BACKUP_R2_SECRET_ACCESS_KEY` | R2 访问密钥 | `your_secret_access_key_here` |
+| `BACKUP_R2_BUCKET_NAME` | R2 存储桶名称 | `your_bucket_name_here` |
 
 可选变量：
 
@@ -165,3 +165,15 @@ node /root/clawd/fuhuo/fuhuo_relive.js
 ---
 
 ## 路径映射
+
+本地根目录：`/root/clawd`
+远端树文件：`{BACKUP_R2_PREFIX}/FUHUO-FILES-TREE.json`
+远端文件根：`{BACKUP_R2_PREFIX}/openclaw/`
+
+映射规则：
+- 远端 `openclaw/xxx` → 本地 `/root/clawd/xxx`
+- 远端 `openclaw/_config/yyy` → 本地 `/root/.openclaw/yyy` 或 `/root/.clawdbot/yyy`
+
+---
+
+**熊大，冲啊！🐻💪**

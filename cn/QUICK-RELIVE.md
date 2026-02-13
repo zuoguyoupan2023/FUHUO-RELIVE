@@ -18,10 +18,10 @@ env | grep -i backup
 
 **期望看到**:
 ```bash
-BACKUP_R2_ACCOUNT_ID=...
-BACKUP_R2_ACCESS_KEY_ID=...
-BACKUP_R2_SECRET_ACCESS_KEY=...
-BACKUP_R2_BUCKET_NAME=...
+BACKUP_R2_ACCOUNT_ID=your_account_id_here
+BACKUP_R2_ACCESS_KEY_ID=your_access_key_id_here
+BACKUP_R2_SECRET_ACCESS_KEY=your_secret_access_key_here
+BACKUP_R2_BUCKET_NAME=your_bucket_name_here
 ```
 
 ❌ **如果缺失**: 无法继续，需要先设置环境变量
@@ -129,10 +129,10 @@ node --version  # 需要 v16+
 ```bash
 # 1. 检查环境变量
 $ env | grep -i backup
-BACKUP_R2_ACCOUNT_ID=409198b57859944e8c4277c5a4236cb0
-BACKUP_R2_ACCESS_KEY_ID=d4f72e7ac3ff0055a6cab1301e826309
-BACKUP_R2_SECRET_ACCESS_KEY=...
-BACKUP_R2_BUCKET_NAME=openclawbotonline-data-2
+BACKUP_R2_ACCOUNT_ID=your_account_id_here
+BACKUP_R2_ACCESS_KEY_ID=your_access_key_id_here
+BACKUP_R2_SECRET_ACCESS_KEY=your_secret_access_key_here
+BACKUP_R2_BUCKET_NAME=your_bucket_name_here
 
 # 2. 执行归来协议
 $ node /root/clawd/fuhuo/fuhuo_relive.js
