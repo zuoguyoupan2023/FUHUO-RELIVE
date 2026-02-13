@@ -1,17 +1,46 @@
 #!/usr/bin/env node
 
 /**
- * FUHUO 归来协议 - 自包含版本
- * 从 R2 存储桶恢复文件到本地
- * 只依赖 Node.js 内置模块，无需安装任何包
+ * FUHUO RELIVE PROTOCOL - 归来协议
  *
- * 使用方法：
- * 1. 确保环境变量已设置：
- *    - BACKUP_R2_ACCESS_KEY_ID
- *    - BACKUP_R2_SECRET_ACCESS_KEY
- *    - BACKUP_R2_ACCOUNT_ID
- *    - BACKUP_R2_BUCKET_NAME
- * 2. 运行: node fuhuo_relive_standalone.js
+ * === AI 执行流程 ===
+ *
+ * 步骤 1：验证环境变量（必须先执行）
+ *   $ env | grep BACKUP_R2
+ *
+ *   期望看到 4 个变量：
+ *   - BACKUP_R2_ACCESS_KEY_ID
+ *   - BACKUP_R2_SECRET_ACCESS_KEY
+ *   - BACKUP_R2_ACCOUNT_ID
+ *   - BACKUP_R2_BUCKET_NAME
+ *
+ * 步骤 2：执行归来协议
+ *   $ node fuhuo_relive.js
+ *
+ * === 如果步骤 1 输出为空 ===
+ *
+ * 说明环境变量未设置。需要：
+ * 1. 询问用户获取这些变量的值
+ * 2. 或检查系统配置文件
+ * 3. 或检查容器启动时的环境变量设置
+ *
+ * === 技术说明 ===
+ *
+ * PURPOSE: 从 R2 存储桶恢复文件到 /root/clawd/
+ * WHEN: 首次安装 / 容器重启 / 文件丢失
+ * DEPENDENCY: 只依赖 Node.js 内置模块，无需 npm install
+ *
+ * RESTORE TO: /root/clawd/
+ * R2 ENDPOINT: {ACCOUNT_ID}.r2.cloudflarestorage.com
+ * DOCS: /root/clawd/fuhuo/FUHUO-RELIVE.md
+ *
+ * === 快速使用 ===
+ *
+ * 方法1：一键执行（推荐）
+ *   $ curl -fsSL https://fuhuo.me/cn/fuhuo_relive.js | node -
+ *
+ * 方法2：本地脚本
+ *   $ node /root/clawd/fuhuo/fuhuo_relive.js
  */
 
 const https = require('https');

@@ -66,10 +66,22 @@ AI-QUICK-GUIDE:
 
 ========== 场景1：执行归来协议 ==========
 用户指令示例："访问fuhuo.me，执行归来协议"
-Script: /cn/fuhuo_relive.js
-Docs: /cn/FUHUO-RELIVE.md
-Command: curl https://fuhuo.me/cn/fuhuo_relive.js | node -
-Env: BACKUP_R2_ACCESS_KEY_ID, BACKUP_R2_SECRET_ACCESS_KEY, BACKUP_R2_ACCOUNT_ID, BACKUP_R2_BUCKET_NAME
+
+步骤 1：验证环境变量（必须先执行）
+  Command: env | grep BACKUP_R2
+  说明: 检查 4 个必需的环境变量是否存在
+  期望看到: BACKUP_R2_ACCOUNT_ID, BACKUP_R2_ACCESS_KEY_ID, BACKUP_R2_SECRET_ACCESS_KEY, BACKUP_R2_BUCKET_NAME
+
+步骤 2：执行归来协议
+  IF 步骤 1 看到 4 个变量:
+    → 继续执行
+  ELSE:
+    → 询问用户获取环境变量值
+
+  Script: /cn/fuhuo_relive.js
+  Docs: /cn/FUHUO-RELIVE.md
+  Command: curl https://fuhuo.me/cn/fuhuo_relive.js | node -
+  Env: BACKUP_R2_ACCESS_KEY_ID, BACKUP_R2_SECRET_ACCESS_KEY, BACKUP_R2_ACCOUNT_ID, BACKUP_R2_BUCKET_NAME
 
 ========== 场景2：首次安装协议 ==========
 用户指令示例："访问fuhuo.me，安装复活协议"
