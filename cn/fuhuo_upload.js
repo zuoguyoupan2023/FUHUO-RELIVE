@@ -127,9 +127,13 @@ function request(method, key, body = null, contentType = null) {
   return new Promise((resolve, reject) => {
     const host = `${bucket}.${accountId}.r2.cloudflarestorage.com`;
 
+    // ✅ 优化：使用 encodeURI 保留路径结构，正确处理中文
+    // encodeURI 会编码中文字符但保留 / 不变
+    const encodedKey = encodeURI(key);
+
     // 计算内容哈希
     const contentHash = body ? crypto.createHash('sha256').update(body).digest('hex') : null;
-    const headers = getAuthHeaders(method, key, contentHash);
+    const headers = getAuthHeaders(method, encodedKey, contentHash);
 
     headers['Host'] = host;
     if (contentType) {
@@ -142,7 +146,7 @@ function request(method, key, body = null, contentType = null) {
     const options = {
       hostname: host,
       port: 443,
-      path: `/${key}`,
+      path: `/${encodedKey}`,
       method: method,
       headers: headers
     };

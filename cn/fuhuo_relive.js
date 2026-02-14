@@ -125,13 +125,15 @@ function request(method, key) {
   return new Promise((resolve, reject) => {
     const host = `${bucket}.${accountId}.r2.cloudflarestorage.com`;
 
-    const headers = getAuthHeaders(method, `/${key}`);
+    // ✅ 修复：对路径进行 URL 编码，解决中文文件名问题
+    const encodedKey = encodeURI(key);
+    const headers = getAuthHeaders(method, `/${encodedKey}`);
     headers['Host'] = host;
 
     const options = {
       hostname: host,
       port: 443,
-      path: `/${key}`,
+      path: `/${encodedKey}`,  // ✅ 使用编码后的路径
       method: method,
       headers: headers
     };

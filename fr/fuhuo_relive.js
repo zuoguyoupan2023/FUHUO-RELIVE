@@ -127,12 +127,13 @@ function request(method, key) {
     const host = `${bucket}.${accountId}.r2.cloudflarestorage.com`;
 
     const headers = getAuthHeaders(method, `/${key}`);
+    const encodedKey = encodeURI(key);
     headers['Host'] = host;
 
     const options = {
       hostname: host,
       port: 443,
-      path: `/${key}`,
+      path: `/${encodedKey}`,
       method: method,
       headers: headers
     };
